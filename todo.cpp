@@ -29,7 +29,6 @@ using namespace std;
 int main(int argc, char* argv[])
 {
   string mode = argv[1];
-  cout << "argument is: " << mode << endl;
   if(mode == "add")
     {
       ofstream write_todo_list;
@@ -44,7 +43,6 @@ int main(int argc, char* argv[])
   if(mode == "list")
     {
       string line;
-      cout << "argument was: list" << endl;
       ifstream read_todo_list;
       read_todo_list.open("todo_list.txt");
       while (getline (read_todo_list,line))
@@ -55,7 +53,6 @@ int main(int argc, char* argv[])
     }
   if(mode == "remove")
     {
-      cout << "argument was: remove" << endl;
       string temp;
       string rest_of_file;
       ifstream read_todo_list;
@@ -63,7 +60,6 @@ int main(int argc, char* argv[])
       read_todo_list.open("todo_list.txt");
       int count = 0;
       int line_to_remove = atoi(argv[2]);
-      cout << "removing line: " << line_to_remove << endl;
       while(getline(read_todo_list,temp))
 	{
 	  if(count != line_to_remove)
@@ -73,7 +69,6 @@ int main(int argc, char* argv[])
 	    }
 	  if(count == line_to_remove)
 	    {
-	      cout << "temp cleared" << endl;
 	      temp.clear();
 	      rest_of_file = rest_of_file + temp;
 	      count ++;
