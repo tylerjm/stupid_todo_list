@@ -8,7 +8,11 @@
   todo expects two arguments: the operation to complete (add/remove/list), and either a string which describes 
   (in English prose) the task to be added to the list, or the number of the task to be removed.
 
-  example: $> todo add "fix stupid bugs"
+  todo also expects that it lives in the bin folder in your home directory.
+
+  example: 
+
+           $> todo add "fix stupid bugs"
            $> todo: added task [0]: "fix stupid bugs"
 
 	   $> todo list
@@ -24,15 +28,23 @@
 #include <fstream>
 #include <string>
 #include <cstdlib>
+#include <stdlib.h>
+#include <string.h>
 using namespace std;
 
 int main(int argc, char* argv[])
 {
   string mode = argv[1];
+  char* working_dir;
+  char* home_dir;
+  
+  home_dir = getenv("HOME");
+  working_dir = strcat(home_dir, "/bin/todo_list.txt");
+  
   if(mode == "add")
     {
       ofstream write_todo_list;
-      write_todo_list.open("todo_list.txt", std::ofstream::out | std::ofstream::app);
+      write_todo_list.open(working_dir, std::ofstream::out | std::ofstream::app);
       for(int i = 2; i < argc ; i++)
 	{
 	  write_todo_list << argv[i] << " ";
@@ -44,7 +56,7 @@ int main(int argc, char* argv[])
     {
       string line;
       ifstream read_todo_list;
-      read_todo_list.open("todo_list.txt");
+      read_todo_list.open(working_dir);
       while (getline (read_todo_list,line))
 	{
 	  cout << line << endl;
@@ -57,7 +69,7 @@ int main(int argc, char* argv[])
       string rest_of_file;
       ifstream read_todo_list;
       ofstream write_todo_list;
-      read_todo_list.open("todo_list.txt");
+      read_todo_list.open(working_dir);
       int count = 0;
       int line_to_remove = atoi(argv[2]);
       while(getline(read_todo_list,temp))
@@ -75,7 +87,7 @@ int main(int argc, char* argv[])
 	    }
 	}
       read_todo_list.close();
-      write_todo_list.open("todo_list.txt");
+      write_todo_list.open(working_dir);
       write_todo_list << rest_of_file;
       write_todo_list.close();
     }
