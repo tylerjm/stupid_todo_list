@@ -15,3 +15,5 @@ todo expects two arguments: the operation to complete (add/remove/list), and eit
 To use todo:
 
 Just compile it (I do: g++ -o todo todo.cpp), then put the resulting binary in your bin folder, which is presumably in your PATH, or put an alias to it in your .bashrc
+
+NOTE: This thing expects that it lives in ~/bin/ , if you want it to live somewhere else you'll have to modify the source (just for now)
